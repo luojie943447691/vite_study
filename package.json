@@ -1,0 +1,9 @@
+{
+  "name": "vite_study",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "dayjs": "^1.11.5"
+  }
+}
