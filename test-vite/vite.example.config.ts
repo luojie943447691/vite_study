@@ -1,6 +1,16 @@
+import path from "path";
 import { defineConfig } from "vite";
 
+const postcssPresetEnv = require("postcss-preset-env");
+
 export default defineConfig({
+  // 别名
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname,"./src"),
+      "@assets":path.resolve(__dirname,"./src/assets")
+    },
+  },
   // 优化专用
   optimizeDeps: {
     exclude: ["lodash-es"],
@@ -38,5 +48,28 @@ export default defineConfig({
       },
     },
     devSourcemap: true, // 我们打开谷歌的控制台之后，点击某个 div 的 style，会精准定位到具体的文件
+    postcss: {
+      plugins: [
+        postcssPresetEnv({
+          // 让一些全局变量可以让 postcss 检测到，不然跨文件的形如 --globalColor:red ，这样的代码
+          //   会在编译的时候出问题，比如当前这个例子里面，如果不加这句配置，编译之后会少一句代码
+          //    background-color: red; 就是这个。
+          importFrom: path.resolve(__dirname, "./vars.css"),
+        }),
+      ],
+    },
   },
+  build:{
+    rollupOptions:{
+      output:{
+        // file:'bundle.js',
+        // format:'iife',
+        // name:'MyBundle',
+        assetFileNames:"[hash].[name].[ext]",
+      }
+    },
+    // assetsInlineLimit: 81 * 1024 , // 指定限制的大小 
+    outDir:"dist123",
+    assetsDir:"hhh" , // 静态资源目录
+  }
 });

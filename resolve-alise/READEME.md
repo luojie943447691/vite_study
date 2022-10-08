@@ -1,0 +1,1 @@
+vite中配置 resolve.alias ，到底干了什么

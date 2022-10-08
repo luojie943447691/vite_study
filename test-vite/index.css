@@ -1,5 +1,7 @@
-html,body{
-    height: 100%;
-    width: 100%;
-    background-color: aqua;
+html,
+body {
+  height: 100%;
+  /* 占 20% 不小于 500px 不大于 600px */
+  width: clamp(500px, 20%, 600px);
+  background-color: aqua;
 }

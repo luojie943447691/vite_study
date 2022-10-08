@@ -25,6 +25,7 @@ app.use(async ctx => {
         // 找我们要 根路径 的东西，一般情况下是返回个界面
         const indexContent = await fs.promises.readFile(path.resolve(__dirname,"./App.vue")) 
         ctx.response.body = indexContent.toString()
+        // 即使你看到了 以 vue 结尾的文件，你也以 js 的形式去解析
         ctx.response.set("content-type","text/javascript;charset=utf-8")
     }
     if(url === '/api/getUsetInfo'){

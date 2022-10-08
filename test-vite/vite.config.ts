@@ -1,8 +1,4 @@
-import {
-  ConfigEnv,
-  defineConfig,
-  loadEnv,
-} from "vite";
+import { ConfigEnv, defineConfig, loadEnv } from "vite";
 import viteBaseConfig from "./vite.base.config";
 import viteDevConfig from "./vite.dev.config";
 import viteProConfig from "./vite.pro.config";
@@ -18,14 +14,15 @@ import viteProConfig from "./vite.pro.config";
 // };
 
 const envResolver = {
-  build: (obj:ConfigEnv) => Object.assign({},viteBaseConfig(obj), viteProConfig),
-  serve: (obj: ConfigEnv) => Object.assign({},viteBaseConfig(obj), viteDevConfig),
+  // 这里尤其要注意不要使用  viteProConfig 的内容会覆盖 viteBaseConfig 的内容
+  // 之前因为这个原因找了一个多小时
+  build: (mode) => Object.assign({}, viteBaseConfig(mode), viteProConfig),
+  serve: (mode) => Object.assign({}, viteBaseConfig(mode), viteDevConfig),
 };
 
-export default ({ mode, command }: ConfigEnv) => {
+export default  ({ mode, command }: ConfigEnv) => {
   // console.log("process",process.env);
-  const env = loadEnv(mode,process.cwd())
+  const env = loadEnv(mode, process.cwd());
   // console.log("env",env);
-  // console.log("viteBaseConfig",viteBaseConfig({mode} as ConfigEnv));
-  return envResolver[command]({mode} as ConfigEnv);
+  return envResolver[command](mode)
 };

@@ -5,14 +5,5 @@ import { createHtmlPlugin } from "vite-plugin-html";
 //   return {};
 // };
 export default defineConfig({
-    base:"./",
-  plugins: [
-    createHtmlPlugin({
-      inject: {
-        data: {
-          title: "生产标题",
-        },
-      },
-    }),
-  ],
+
 });

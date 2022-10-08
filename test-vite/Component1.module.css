@@ -1,5 +1,5 @@
 .footer1{
-    width: 300px;
+    width: clamp(500px,20%,600px);
     height: 300px;
     background-color: black;
 }
